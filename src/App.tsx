@@ -40,16 +40,8 @@ export default function App() {
 
   // Theme state initialized to a random theme on app load, making the day (light) theme least prior
   const [themeMode, setThemeMode] = useState<ThemeMode>(() => {
-    const rand = Math.random();
-    // Weighted probabilities: 
-    // dark: 35% chance (0.00 to 0.35)
-    // galaxy: 35% chance (0.35 to 0.70)
-    // desert: 25% chance (0.70 to 0.95)
-    // light (day theme): 5% chance (0.95 to 1.00) -> least prior
-    if (rand < 0.35) return "dark";
-    if (rand < 0.70) return "galaxy";
-    if (rand < 0.95) return "desert";
-    return "light";
+    const saved = localStorage.getItem("app-theme");
+    return (saved as ThemeMode) || "desert";
   });
 
   useEffect(() => {
