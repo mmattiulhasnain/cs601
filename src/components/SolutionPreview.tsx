@@ -52,7 +52,7 @@ export default function SolutionPreview({
   const [spacingDensity, setSpacingDensity] = useState<"comfortable" | "compact" | "double">("comfortable");
   const [coverBorder, setCoverBorder] = useState<"none" | "thin" | "double">("none");
   const [mismatchHighlight, setMismatchHighlight] = useState<"red" | "yellow" | "underline" | "none">("red");
-  const [openSection, setOpenSection] = useState<"metadata" | "intro" | "q1" | "q2" | "conclusion" | null>("q1");
+  const [openSection, setOpenSection] = useState<"metadata" | "intro" | "q1" | "q2" | "conclusion" | null>(null);
 
   const hasPage1Active = !solution.disabledSections?.intro || !solution.disabledSections?.diagram || !solution.disabledSections?.q1;
   const hasPage2Active = !solution.disabledSections?.q2 || !solution.disabledSections?.conclusion;

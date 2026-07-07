@@ -5,7 +5,6 @@ import { AssignmentSolution, StudentInfo, AssignmentHeader } from "./types";
 import SolutionPreview from "./components/SolutionPreview";
 import InteractiveSimulations from "./components/InteractiveSimulations";
 import ToDoChecklist from "./components/ToDoChecklist";
-import GitHubPagesSetup from "./components/GitHubPagesSetup";
 import { 
   BookOpen, 
   FileSpreadsheet, 
@@ -21,7 +20,8 @@ import {
   Compass,
   Github,
   PanelLeftClose,
-  PanelLeftOpen
+  PanelLeftOpen,
+  Network
 } from "lucide-react";
 import { ThemeMode, themes } from "./utils/theme";
 
@@ -33,7 +33,7 @@ export default function App() {
   const [assignmentHeader, setAssignmentHeader] = useState<AssignmentHeader>(defaultAssignmentHeader);
 
   // Active workspace tab state
-  const [activeTab, setActiveTab] = useState<"document" | "simulators" | "checklist" | "github">("document");
+  const [activeTab, setActiveTab] = useState<"document" | "simulators" | "checklist">("document");
 
   // Sidebar visibility state
   const [sidebarOpen, setSidebarOpen] = useState(true);
@@ -115,7 +115,35 @@ export default function App() {
           >
             {sidebarOpen ? <PanelLeftClose size={16} /> : <PanelLeftOpen size={16} />}
           </button>
-          <div className={`w-8 h-8 ${themeMode === "desert" ? "bg-[#C05C33]" : themeMode === "galaxy" ? "bg-purple-800" : themeMode === "dark" ? "bg-emerald-600" : "bg-zinc-900"} rounded flex items-center justify-center font-bold text-white text-xs`}>AQ</div>
+          <div className="flex relative items-center justify-center cursor-pointer">
+            <motion.div 
+              animate={{ rotate: 360, borderRadius: ["10%", "50%", "10%"] }}
+              transition={{ repeat: Infinity, duration: 6, ease: "linear" }}
+              className={`w-10 h-10 flex items-center justify-center text-white shadow-lg bg-gradient-to-br ${
+                themeMode === "desert" ? "from-[#D87040] to-[#A04520]" : 
+                themeMode === "galaxy" ? "from-purple-600 to-indigo-900" : 
+                themeMode === "dark" ? "from-emerald-500 to-teal-800" : 
+                "from-zinc-800 to-zinc-950"
+              }`}
+            >
+              <motion.div
+                animate={{ scale: [1, 1.2, 1] }}
+                transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
+              >
+                <Network size={22} className="drop-shadow-md" strokeWidth={2.5} />
+              </motion.div>
+            </motion.div>
+            <motion.div 
+              animate={{ scale: [1, 1.5, 1], opacity: [1, 0.7, 1] }}
+              transition={{ repeat: Infinity, duration: 1.5 }}
+              className={`absolute -bottom-1 -right-1 w-4 h-4 rounded-full border-2 ${s.headerBg} flex items-center justify-center ${
+                themeMode === "desert" ? "bg-amber-400" : 
+                themeMode === "galaxy" ? "bg-fuchsia-400" : 
+                themeMode === "dark" ? "bg-emerald-400" : 
+                "bg-blue-500"
+              }`} 
+            />
+          </div>
           <div>
             <h1 className={`text-sm font-bold tracking-tight ${s.headerText} flex items-center gap-2`}>
               ASSIGNMENT QUORUM <span className={`${s.badgeBg} text-[9px] px-2 py-0.5 rounded border ${s.subBorder} font-bold tracking-widest`}>v2.4</span>
@@ -294,7 +322,7 @@ export default function App() {
         <div className={`${sidebarOpen ? "lg:col-span-8" : "lg:col-span-12"} flex flex-col gap-6 transition-all duration-300`}>
           
           {/* Main Workspace Navigation Tabs */}
-          <div className={`grid grid-cols-2 sm:grid-cols-4 ${s.tabBarBg} p-1 rounded-lg gap-1 transition-colors duration-300`}>
+          <div className={`grid grid-cols-1 sm:grid-cols-3 ${s.tabBarBg} p-1 rounded-lg gap-1 transition-colors duration-300`}>
             <button
               onClick={() => setActiveTab("document")}
               className={`flex items-center justify-center gap-1.5 py-2.5 px-2 text-xs font-bold rounded transition-all cursor-pointer ${
@@ -331,18 +359,6 @@ export default function App() {
               <CheckSquare size={13} className="shrink-0" />
               <span className="truncate">VU Checklist</span>
             </button>
-            <button
-              onClick={() => setActiveTab("github")}
-              className={`flex items-center justify-center gap-1.5 py-2.5 px-2 text-xs font-bold rounded transition-all cursor-pointer ${
-                activeTab === "github"
-                  ? s.tabActiveBg
-                  : s.tabInactiveText
-              }`}
-              id="workspace-tab-github"
-            >
-              <Github size={13} className="shrink-0" />
-              <span className="truncate">GitHub Pages</span>
-            </button>
           </div>
 
           {/* Active Workspace Viewport */}
@@ -366,10 +382,6 @@ export default function App() {
 
             {activeTab === "checklist" && (
               <ToDoChecklist theme={themeMode} />
-            )}
-
-            {activeTab === "github" && (
-              <GitHubPagesSetup theme={themeMode} />
             )}
           </div>
 
