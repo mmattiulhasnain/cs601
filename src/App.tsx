@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { motion } from "motion/react";
 import { solutionsData, defaultStudentInfo, defaultAssignmentHeader } from "./solutionsData";
 import { AssignmentSolution, StudentInfo, AssignmentHeader } from "./types";
 import SolutionPreview from "./components/SolutionPreview";
@@ -88,6 +89,21 @@ export default function App() {
 
   return (
     <div className={`min-h-screen ${s.appBg} flex flex-col font-sans transition-colors duration-300`} id="app-root">
+      {/* Crafted By Signature */}
+      <motion.div 
+        initial={{ opacity: 0, y: 10, scale: 0.95 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
+        transition={{ duration: 0.8, delay: 0.5, ease: "easeOut" }}
+        className="fixed bottom-14 right-6 z-50 pointer-events-none"
+      >
+        <div className={`flex items-center gap-2 px-3 py-1.5 rounded-full backdrop-blur-md border ${s.subBorder} shadow-2xl`} style={{ backgroundColor: themeMode === 'light' ? 'rgba(255, 255, 255, 0.6)' : 'rgba(15, 15, 15, 0.6)' }}>
+          <Sparkles size={12} className={themeMode === "desert" ? "text-[#C05C33]" : themeMode === "galaxy" ? "text-fuchsia-400" : themeMode === "dark" ? "text-emerald-400" : "text-zinc-900"} />
+          <span className={`text-[10px] font-bold uppercase tracking-widest ${s.textPrimary}`}>
+            Crafted by MUHIUM
+          </span>
+        </div>
+      </motion.div>
+
       {/* Top Navigation Bar in clean minimalist style */}
       <header className={`h-16 border-b ${s.headerBorder} ${s.headerBg} px-6 flex items-center justify-between transition-colors duration-300`}>
         <div className="flex items-center gap-4">
