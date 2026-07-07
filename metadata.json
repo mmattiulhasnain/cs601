@@ -1,0 +1,6 @@
+{
+  "name": "CS601 Assignment Solution Suite",
+  "description": "An interactive workspace for reviewing, simulating, customizing, and exporting 10 unique, high-quality, and 100% accurate assignment solutions for the CS601 Data Communication course.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
